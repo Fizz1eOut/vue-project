@@ -4,27 +4,17 @@
       <h1 class="title"> 
         {{ title }}
       </h1>
-
-      <form 
-        action="#"
-        @submit.prevent="addTodo"
-      >
-        <div class="todo__item">
-          <TodoInput />
-        </div>
-      </form>
+      <TodoCreate />
     </div>
   </div>
 </template>
 
 <script>
-import TodoInput from './TodoInput.vue'
-// import TodoAdd from './TodoAdd.vue'
+import TodoCreate from './TodoCreate.vue'
 
 export default {
   components: {
-    TodoInput,
-    // TodoAdd,
+    TodoCreate,
   },
   data() {
     return {
@@ -50,11 +40,6 @@ export default {
     color: #000;
     margin: 0 0 50px 0;
     text-align: center;
-  }
-  .todo__item {
-    display: flex;
-    align-items: center;
-    gap: 10px;
   }
 </style>
 
