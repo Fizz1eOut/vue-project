@@ -4,27 +4,48 @@
       <h1 class="title"> 
         {{ title }}
       </h1>
-      <TodoCreate />
+      <TodoCreate @add="addTodo" />
+
+      <ul>
+        <TodoItem
+          v-for="todo in todos" 
+          :key="todo.id" 
+          :todo="todo"
+        />
+      </ul>
     </div>
   </div>
 </template>
 
 <script>
+import { defineComponent } from 'vue';
 import TodoCreate from './TodoCreate.vue'
+import TodoItem from './TodoItem.vue'
 
-export default {
+let id = 0;
+export default defineComponent({
   components: {
     TodoCreate,
+    TodoItem,
   },
   data() {
     return {
       title: 'Ваши заметки',
+      todos: [],
     }
   },
   methods: {
-    
+    methods: {
+    addTodo(text) { // функция добавление по клику на кнопку добавить
+        this.todos.push({id: id++, text: text, done: false}) // Добавление обьекта с id и текстом в массив todos
+      //   this.text = '' // после ввода текста в инпут, очищаем его
+    },
+    removeTodo(todo) {
+      this.todos = this.todos.filter((item) => item !== todo)
+    }
+  },
   }
-}
+});
 </script>
 
 <style>

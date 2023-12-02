@@ -19,46 +19,34 @@
       </button>
     </div>
   </form>
-
-  <ul>
-    <TodoList 
-      v-for="todo in todos" 
-      :key="todo.id" 
-    />
-  </ul>
 </template>
 
 <script>
-import TodoList from './TodoList.vue'
-let id = 0;
 export default {
+  emits: ['add'],
   data() {
     return {
       text: '',
-      todos: [],
     }
   },
   methods: {
-    addTodo() { // функция добавление по клику на кнопку добавить
-      if (this.text) {
-        this.todos.push({id: id++, text: this.text, done: false}) // Добавление обьекта с id и текстом в массив todos
-        this.text = '' // после ввода текста в инпут, очищаем его
-      }
-    },
-    removeTodo(todo) {
-      this.todos = this.todos.filter((item) => item !== todo)
+    addTodo() {
+      if (text) {
+      this.$emit('add', this.text);
+      this.text = '';
     }
-  },
+  }
+  }
 }
 </script>
 
-<style>
+<style scoped>
   .todo__item {
     display: flex;
     align-items: center;
     gap: 10px;
   }
-.todo__input {
+  .todo__input {
     font-size: 24px;
     line-height: 30px;
     font-weight: 400;
