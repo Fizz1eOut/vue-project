@@ -9,8 +9,11 @@
       <ul>
         <TodoItem
           v-for="todo in todos" 
-          :key="todo.id" 
+          :key="todo.id"
           :todo="todo"
+          :data-id="todo.id"
+          @remove="removeTodo(todo)"
+          @checked="mark(todo, $event)"
         />
       </ul>
     </div>
@@ -22,7 +25,7 @@ import { defineComponent } from 'vue';
 import TodoCreate from './TodoCreate.vue'
 import TodoItem from './TodoItem.vue'
 
-let id = 0;
+let id = 0
 export default defineComponent({
   components: {
     TodoCreate,
@@ -35,20 +38,21 @@ export default defineComponent({
     }
   },
   methods: {
-    methods: {
     addTodo(text) { // функция добавление по клику на кнопку добавить
-        this.todos.push({id: id++, text: text, done: false}) // Добавление обьекта с id и текстом в массив todos
+        this.todos.push({id: id++, text, done: false}) // Добавление обьекта с id и текстом в массив todos
       //   this.text = '' // после ввода текста в инпут, очищаем его
     },
     removeTodo(todo) {
-      this.todos = this.todos.filter((item) => item !== todo)
-    }
-  },
+      this.todos = this.todos.filter((item) => item.id !== todo.id)
+    },
+    mark(todo, checked) {
+    todo.done = checked;
+  }
   }
 });
 </script>
 
-<style>
+<style scoped>
 .container {
     display: flex;
     justify-content: center;

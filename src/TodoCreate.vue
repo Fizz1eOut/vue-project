@@ -22,7 +22,9 @@
 </template>
 
 <script>
-export default {
+import { defineComponent } from 'vue';
+
+export default defineComponent({
   emits: ['add'],
   data() {
     return {
@@ -31,13 +33,13 @@ export default {
   },
   methods: {
     addTodo() {
-      if (text) {
+      if (this.text) {
       this.$emit('add', this.text);
       this.text = '';
+      }
     }
   }
-  }
-}
+})
 </script>
 
 <style scoped>
